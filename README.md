@@ -221,3 +221,69 @@ public class UserDAO {
 
 	}
 }
+```
+
+##### Configuration => persistence.xml
+
+```xml
+<persistence version="2.2" 
+   xmlns="http://xmlns.jcp.org/xml/ns/persistence"  
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence   
+    http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+  >
+    <persistence-unit name="touristapp-pu">
+	
+		<class>com.touristapp.model.User</class>
+		<class>com.touristapp.model.Account</class>
+		
+
+		<properties>	    
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://101.53.133.59:3306/revature_training_db"/> 
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
+            <property name="javax.persistence.jdbc.user" value="rev_user"/> 
+            <property name="javax.persistence.jdbc.password" value="rev_user"/>
+            <property name="hibernate.show_sql" value = "true" /> 
+            <property name="hibernate.format_sql" value = "true" />
+			
+            <!-- <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> --> 
+			
+	    </properties>
+	       
+	</persistence-unit> 
+	 
+</persistence>
+```
+
+##### HibernateUtil.java
+
+```
+package com.touristapp.util;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+public class HibernateUtil {
+
+	private static EntityManagerFactory factory;
+
+	public static Session getSession() {
+		if (factory == null) {
+			factory = Persistence.createEntityManagerFactory("touristapp-pu");
+		}
+		EntityManager entityManager = factory.createEntityManager();
+		Session session = entityManager.unwrap(org.hibernate.Session.class);
+
+		SessionFactory factory = session.getSessionFactory();
+
+		return session;
+	}
+}
+```
+
+
