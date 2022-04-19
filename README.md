@@ -258,7 +258,7 @@ public class UserDAO {
 
 ##### HibernateUtil.java
 
-```
+```java
 package com.touristapp.util;
 
 import javax.persistence.EntityManager;
