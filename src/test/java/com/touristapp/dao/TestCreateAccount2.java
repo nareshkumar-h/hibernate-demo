@@ -10,7 +10,7 @@ public class TestCreateAccount2 {
 		//create user + create account (combined)
 		User user =  new User();
 		user.setName("Prabhu");
-		user.setEmail("p@gmail.com");
+		user.setEmail("p1@gmail.com");
 		user.setPassword("pass1234");
 		user.setRole("USER");
 		

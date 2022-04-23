@@ -40,17 +40,19 @@ public class UserDAO {
 	// select * from users : List<User>
 	public static List<User> findAll() {
 		Session session = HibernateUtil.getSession();
-//		Query<User> user = session.createQuery("select u from com.touristapp.model.User u", User.class);
-		Query<User> user = session.createNativeQuery("select u.* from users u", User.class);
+//		Query<User> user = session.createQuery
+		//("select u from com.touristapp.model.User u", User.class);
+		Query<User> user = session.createNativeQuery
+				("select u.* from users u", User.class);
 		return user.getResultList();
 	}
 
 	// @Query("select u from User u")
 	public static User findByEmailAndPassword(String email, String password) {
 		Session session = HibernateUtil.getSession();
-//		 Query<User> query = session.createQuery("select u from com.touristapp.model.User u where u.email =?1 and password =?2", User.class);
+//		 Query<User> query = session.createQuery("select u from com.touristapp.model.User u where u.email =?1 and u.password =?2", User.class);
 //		Query<User> query = session.createNativeQuery("select u.* from users u where email = ? and password = ?", User.class);
-		Query<User> query = session.createNamedQuery("findByEmailAndPassword", User.class);
+Query<User> query = session.createNamedQuery("findByEmailAndPassword", User.class);
 		query.setParameter(1, email);
 		query.setParameter(2, password);
 		User user = null;
@@ -93,7 +95,6 @@ public class UserDAO {
 		Transaction tx = session.getTransaction();
 		tx.begin();
 		session.merge(user);
-
 		tx.commit();
 		session.close();
 	}
